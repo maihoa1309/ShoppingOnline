@@ -1,0 +1,14 @@
+﻿@model ShoppingOnline.Models.Entity.Category;
+
+@{
+    ViewData["Title"] = "Category";
+}
+
+
+<div class="row">
+    <form method="post">
+        <input type="text" asp-for="Name" placeholder="Enter Category Name" />
+        <span class="text-danger">@Html.ValidationMessageFor(model=>model.Name)</span>
+        <input type="submit" value="Save new Category" />
+    </form>
+</div>

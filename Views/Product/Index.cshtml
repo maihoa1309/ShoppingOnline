@@ -1,0 +1,74 @@
+﻿@model List<ShoppingOnline.Models.Entity.Product>
+<form method="get">
+    <div class="row form-group">
+        <div class="col-md-8 col-sm-8">
+            <input class="form-control" type="search" name="q" placeholder="Enter product name" value="@ViewData["keyword"]" />
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <input type="submit" value="Search" class="btn btn-outline-success" />
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <a href="Product/Add" class="btn btn-outline-info">Add new product</a>
+        </div>
+    </div>
+</form>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewBag.SortByName">Name</a></th>
+            <th scope="col"><a asp-action="Index" asp-route-sortOrder="@ViewBag.SortByQuantity">Quantity</a></th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Date time created</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var pro in Model)
+        {
+            <tr>
+                <td>@pro.Code</td>
+                <td>@pro.Name</td>
+                <td>@pro.Quantity</td>
+                <td>@pro.UnitPrice</td>
+                <td>@pro.CategoryEntity.Name</td>
+                <td>@pro.CreatedDate</td>
+                <td><a href="javascript:void(0)" class="btn btn-outline-primary" onclick="Delete('@pro.Id')">Delete</a></td>
+                <td><a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@pro.Id">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+             <div class="modal-header">
+            <h3>Delete confirmation</h3>
+            </div>
+            <div class="modal-body">
+                Delete category?
+            </div>
+            <div class="modal-footer">
+                <button class=" btn btn-dark" id="close">Close</button>
+                <button class=" btn btn-danger"id="confirm">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    Delete = (proId) => {
+        //if (confirm("Delete this category?")) {
+        //    window.location.href="/Category/Delete/?id="+catId;
+        //}
+        $("#deleteModal").modal('show');
+        $("#close").click(function () {
+            $("#deleteModal").modal('hide')
+        })
+        $("#confirm").click(function () {
+            window.location.href = "/Product/Delete/?id=" + proId
+        })
+    }
+</script>
+

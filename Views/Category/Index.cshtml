@@ -1,0 +1,67 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@model IPagedList<ShoppingOnline.Models.Entity.Category>
+@{
+    ViewData["Title"] = "Category Listing";
+}
+<form method="get">
+    <div class="row form-group">
+        <div class="col-md-8 col-sm-8">
+            <input class="form-control" type="search" name="q" placeholder="Enter category name" value="@ViewData["keyword"]"/>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <input type="submit" value="Search" class="btn btn-outline-success" />
+        </div>
+    </div>
+</form>
+<div class="row">
+    <h3><a href="~/Category/Add">Add new category</a></h3>
+    <table class="table table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th colspan="2" class="text-center">Action</th>
+        </tr>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td><a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a></td>
+                    <td><a href="javascript:void(0)" onclick="Delete('@category.Id')">Delete</a></td>
+                </tr>
+            }
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new {page}))
+</div>
+<!--Model/-->
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+             <div class="modal-header">
+            <h3>Delete confirmation</h3>
+            </div>
+            <div class="modal-body">
+                Delete category?
+            </div>
+            <div class="modal-footer">
+                <button class=" btn btn-dark" id="close">Close</button>
+                <button class=" btn btn-danger"id="confirm">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+     Delete=(catId) =>{
+        //if (confirm("Delete this category?")) {
+        //    window.location.href="/Category/Delete/?id="+catId;
+        //}
+        $("#deleteModal").modal('show');
+        $("#close").click(function(){
+            $("#deleteModal").modal('hide')
+        })
+         $("#confirm").click(function(){
+            window.location.href = "/Category/Delete/?id=" + catId;
+        })
+    }
+</script>

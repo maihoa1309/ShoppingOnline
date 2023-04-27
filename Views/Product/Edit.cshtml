@@ -1,0 +1,48 @@
+﻿@model ShoppingOnline.Models.Entity.Product;
+
+@{
+    ViewData["Title"] = "Update";
+}
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-action="Add">
+            <div class="form-group">
+                <div class="mb-2">
+                    <label>Code:</label>
+                    <input type="text" class="form-control" asp-for="Code" placeholder="Enter product code" />
+                    <span class="text-danger" asp-validation-for="Code"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Enter product name" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Category:</label>
+                    <select class="form-control" asp-for="CategoryId" asp-items="ViewBag.CategoryId"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label>Price:</label>
+                    <input type="text" class="form-control" asp-for="UnitPrice" placeholder="Enter product unitprice" />
+                    <span class="text-danger" asp-validation-for="UnitPrice"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Quantity:</label>
+                    <input type="text" class="form-control" asp-for="Quantity" placeholder="Enter product quantity" />
+                    <span class="text-danger" asp-validation-for="Quantity"></span>
+                </div>
+
+            </div>
+
+            <input type="submit" value="Save product" class="btn btn-primary" style="float:right" />
+        </form>
+
+    </div>
+
+
+</div>
+
